@@ -18,10 +18,15 @@ func (s *DeviceService) createNewDevice(d Device) (*Device, error) {
 }
 
 func (s *DeviceService) getDevice(id int) (*Device, error) {
-	retrieved, err := s.repo.Read(id)
-	if err == ErrNotFound {
-		return nil, ErrNotFound
-	}
+	return s.repo.Read(id)
+}
 
-	return retrieved, nil
+func (s *DeviceService) updateDevice(d Device) (*Device, error) {
+	log.Printf("Updating Device %s", d)
+	return s.repo.Update(d)
+}
+
+func (s *DeviceService) deleteDevice(id int) (*Device, error) {
+	log.Printf("Deleting Device with ID: %d", id)
+	return s.repo.Delete(id)
 }
